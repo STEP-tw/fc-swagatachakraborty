@@ -1,7 +1,6 @@
 {
   "name": "flower_catalog",
-  "version": "1.0.0",
-  "description": "",
+  "version": "0.0.1",
   "main": "server.js",
   "directories": {
     "test": "test"
@@ -11,5 +10,14 @@
     "start": "node server.js"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/STEP-tw/fc-swagatachakraborty.git"
+  },
+  "bugs": {
+    "url": "https://github.com/STEP-tw/fc-swagatachakraborty/issues"
+  },
+  "homepage": "https://github.com/STEP-tw/fc-swagatachakraborty#readme",
+  "description": ""
 }
