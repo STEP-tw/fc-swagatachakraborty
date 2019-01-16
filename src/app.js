@@ -21,6 +21,10 @@ const app = (req, res) => {
   if (req.url == "/style.css") {
     fs.readFile("./src/style.css", "utf8", reader);
   }
+
+  if (req.url == "/jarController.js") {
+    fs.readFile("./src/jarController.js", "utf8", reader);
+  }
 };
 
 module.exports = app;

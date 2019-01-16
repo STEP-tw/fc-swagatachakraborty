@@ -1,3 +1,6 @@
 * DONE write a css file to style the flowerCatalog.html
-* TODO the jar need to hide.
+* DONE the jar need to hide.
 * DONE extract a reader function and use that as a callback for readFile
+
+* remove repetitions in app.js
+* handle 404 situations.
