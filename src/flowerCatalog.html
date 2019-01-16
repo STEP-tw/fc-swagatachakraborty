@@ -1,31 +1,27 @@
 <html>
   <head>
     <title>Flower Catalog</title>
+    <link rel="stylesheet" href="/style.css" />
   </head>
-  <body style="position:'relative'; display:'flex'; ">
-    <h1
-      style="border-bottom: 1px solid black; text-align: center; color: orange;"
-    >
-      Flower Catalog
-    </h1>
-    <main style="display: flex; flex-direction: row;">
-      <div><img src="./src/images/flowers.jpg" alt="flowers" /></div>
-      <div>
-        <ul>
-          <li>
-            <a href="https://en.wikipedia.org/wiki/Abeliophyllum">
-              Abeliophyllum
-            </a>
-          </li>
-          <li>
-            <a href="https://en.wikipedia.org/wiki/Ageratum"> Ageratum </a>
-          </li>
-        </ul>
-        <a href=""> Guest Book </a>
-        <img
-          src="https://i.ibb.co/GQnn1Bn/animated-flower-image-0021.gif"
-          alt="flowers-jar"
-        />
+  <body>
+    <h1 class="heading">Flower Catalog</h1>
+    <main>
+      <div id="left"><img src="/images/flowers.jpg" alt="flowers" /></div>
+      <div id="right">
+        <div class="center">
+          <ul>
+            <li>
+              <a href="https://en.wikipedia.org/wiki/Abeliophyllum">
+                Abeliophyllum
+              </a>
+            </li>
+            <li>
+              <a href="https://en.wikipedia.org/wiki/Ageratum"> Ageratum </a>
+            </li>
+          </ul>
+          <a href=""> Guest Book </a>
+          <img id="jar" src="/images/watering_jar.gif" alt="flowers-jar" />
+        </div>
       </div>
     </main>
   </body>

@@ -1,0 +1,23 @@
+.heading {
+  border-bottom: 1px solid black;
+  text-align: center;
+  color: orange;
+}
+
+main {
+  display: flex;
+  flex-direction: row;
+}
+
+#left img {
+  height: 550px;
+}
+
+.right {
+  display: flex;
+  flex-direction: column;
+}
+
+.center {
+  margin-top: 200px;
+}
