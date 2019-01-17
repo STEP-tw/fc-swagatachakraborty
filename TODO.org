@@ -2,5 +2,8 @@
 * DONE the jar need to hide.
 * DONE extract a reader function and use that as a callback for readFile
 
-* remove repetitions in app.js
-* handle 404 situations.
+* DONE remove repetitions in app.js
+* DONE handle 404 situations.
+
+* TODO need a frame work like sheeghra
+

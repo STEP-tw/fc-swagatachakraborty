@@ -1,30 +1,26 @@
 const fs = require("fs");
 
+const getFIlePath = url => "./public" + url;
+
+const send = function (res, status, content) {
+	res.statusCode = status;
+	res.write(content);
+	res.end();
+};
+
+const reader = function(res, error, data) {
+	let status = 200;
+	if(error){
+		status = 404;
+		data = '404: Not Found';
+	}
+	send(res, status, data);
+};
+
 const app = (req, res) => {
-  const reader = function(error, data) {
-    res.write(data);
-    res.end();
-  };
-
-  if (req.url == "/") {
-    fs.readFile("./src/flowerCatalog.html", "utf8", reader);
-  }
-
-  if (req.url == "/images/flowers.jpg") {
-    fs.readFile("./src/images/flowers.jpg", reader);
-  }
-
-  if (req.url == "/images/watering_jar.gif") {
-    fs.readFile("./src/images/watering_jar.gif", reader);
-  }
-
-  if (req.url == "/style.css") {
-    fs.readFile("./src/style.css", "utf8", reader);
-  }
-
-  if (req.url == "/jarController.js") {
-    fs.readFile("./src/jarController.js", "utf8", reader);
-  }
+	let url = getFIlePath(req.url);
+	if (req.url == "/") url = "./public/flowerCatalog.html";
+	fs.readFile(url, reader.bind(null, res));
 };
 
 module.exports = app;
