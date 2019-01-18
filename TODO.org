@@ -6,7 +6,7 @@
 * DONE handle 404 situations.
 
 * DONE need a frame work like sheeghra
-* clean up the function request handler.
+* TODO clean up the function request handler.
 
 * TODO clean up the function request handler.
 * TODO First write the guest book page then refactor requestHandler.js handleRequest function.

@@ -16,18 +16,22 @@ class Handler {
       let currentReq = validRequests.shift();
       if (!currentReq) return;
       currentReq.handler(req, res, next);
-      // next();
     }
-
     next();
   }
+
+  getComment() {}
 
   view(handler) {
     this.routes.push({ handler });
   }
 
   get(url, handler) {
-    this.routes.push({ url, handler });
+    this.routes.push({ method: "GET", url, handler });
+  }
+
+  post(url, handler) {
+    this.routes.push({ method: "POST", url, handler });
   }
 }
 
