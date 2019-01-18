@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Guest Book</title>
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body>
+    <h1 class="heading"><a href="/"> << </a>Guest Book</h1>
+    <form method="POST" action="/guest_book.html" onsubmit="storeComment()">
+      <h1>Leave a comment</h1>
+      Name:<input name="name" /> <br />
+      Comment: <textarea name="comment" rows="3"></textarea> <br />
+      <input type="submit" />
+    </form>
+    <hr />
+    <div id="comments">DATETILE_NAME_COMMENTS_LIST</div>
+    <hr />
+  </body>
+</html>

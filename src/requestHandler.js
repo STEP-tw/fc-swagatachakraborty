@@ -15,8 +15,8 @@ class Handler {
     function next() {
       let currentReq = validRequests.shift();
       if (!currentReq) return;
-      currentReq.handler(req, res);
-      next();
+      currentReq.handler(req, res, next);
+      // next();
     }
 
     next();
