@@ -20,7 +20,9 @@ app.get("/images/watering_jar.gif", serveFile);
 app.post("/guest_book.html", storeComment);
 app.get("/ageratum.html", serveFile);
 app.get("/images/ageratum.jpg", serveFile);
+app.get("/Ageratum.pdf", serveFile);
 app.get("/abeliophyllum.html", serveFile);
 app.get("/images/abeliophyllum.jpg", serveFile);
+app.get("/Abeliophyllum.pdf", serveFile);
 
 module.exports = app.handleRequests.bind(app);
