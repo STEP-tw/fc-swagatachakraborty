@@ -5,13 +5,17 @@ const areMatching = function(req, route) {
   return true;
 };
 
-class Handler {
-  constructor(url = []) {
-    this.routes = url;
+class App {
+  constructor(routes = []) {
+    this.routes = routes;
+  }
+
+  filterValidRequests(req) {
+    return this.routes.filter(route => areMatching(req, route));
   }
 
   handleRequests(req, res) {
-    let validRequests = this.routes.filter(route => areMatching(req, route));
+    let validRequests = this.filterValidRequests(req);
     function next() {
       let currentReq = validRequests.shift();
       if (!currentReq) return;
@@ -20,9 +24,7 @@ class Handler {
     next();
   }
 
-  getComment() {}
-
-  view(handler) {
+  use(handler) {
     this.routes.push({ handler });
   }
 
@@ -35,4 +37,4 @@ class Handler {
   }
 }
 
-module.exports = Handler;
+module.exports = { App };

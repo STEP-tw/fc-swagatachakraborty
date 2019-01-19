@@ -1,28 +1,26 @@
-const Handler = require("./requestHandler");
-const app = new Handler();
+const fs = require("fs");
+const { App } = require("./frameWork");
+const { Comments } = require("./comment");
 const {
   readBody,
   logger,
-  renderHome,
   serveFile,
   storeComment,
   renderGuestBook
-} = require("./handlers");
+} = require("./requestHandlers");
 
-app.view(readBody);
-app.view(logger);
-app.get("/", renderHome);
-app.get("/style.css", serveFile);
-app.get("/jarController.js", serveFile);
-app.get("/images/flowers.jpg", serveFile);
-app.get("/guest_book.html", renderGuestBook);
-app.get("/images/watering_jar.gif", serveFile);
-app.post("/guest_book.html", storeComment);
-app.get("/ageratum.html", serveFile);
-app.get("/images/ageratum.jpg", serveFile);
-app.get("/Ageratum.pdf", serveFile);
-app.get("/abeliophyllum.html", serveFile);
-app.get("/images/abeliophyllum.jpg", serveFile);
-app.get("/Abeliophyllum.pdf", serveFile);
+const loadComments = () => {
+  const comment = fs.readFileSync("./public/comments.json", "utf8");
+  return JSON.parse(comment);
+};
+
+const comment = new Comments(loadComments());
+const app = new App();
+
+app.use(readBody);
+app.use(logger);
+app.get("/guest_book.html", renderGuestBook.bind(null, comment));
+app.post("/guest_book.html", storeComment.bind(null, comment, fs));
+app.use(serveFile);
 
 module.exports = app.handleRequests.bind(app);

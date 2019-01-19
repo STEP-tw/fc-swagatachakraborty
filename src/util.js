@@ -1,4 +1,7 @@
-const getFilePath = url => "./public" + url;
+const getFilePath = function(url) {
+  if (url == "/") return "./public/index.html";
+  return "./public" + url;
+};
 
 const send = function(res, status, content) {
   res.statusCode = status;
@@ -8,14 +11,11 @@ const send = function(res, status, content) {
 
 const reader = function(res, error, data) {
   let status = 200;
-  if (error) sendNotFound(res);
+  if (error) {
+    sendNotFound(res);
+    return;
+  }
   send(res, status, data);
-};
-
-const writer = function(res, next, error) {
-  if (error) sendNotFoud();
-  send(res, 200, "");
-  next();
 };
 
 const sendNotFound = function(res) {
@@ -28,21 +28,8 @@ const parse = function(data) {
   return {
     name,
     comment,
-    date: Date()
+    date: new Date().toLocaleString()
   };
 };
 
-const addComment = function(path, fs, newComment, res, next) {
-  fs.readFile(path, function(error, data) {
-    if (error) sendNotFound();
-    let allComments = JSON.parse(data);
-    allComments.unshift(newComment);
-    fs.writeFile(
-      path,
-      JSON.stringify(allComments),
-      writer.bind(null, res, next)
-    );
-  });
-};
-
-module.exports = { getFilePath, reader, parse, send, writer, addComment };
+module.exports = { getFilePath, reader, parse, send };

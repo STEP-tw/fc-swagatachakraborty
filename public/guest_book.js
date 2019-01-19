@@ -14,12 +14,12 @@ const display = function(comments) {
       <input type="submit" />
     </form>
 		<hr />
-		<table border=1px solid black>
+		<table border=1px solid black width=100%>
 			<thead>
 				<tr>
-					<th>NAME</th>
-					<th>DATE AND TIME</th>
-					<th>COMMENT</th>
+					<th width=20%>NAME</th>
+					<th width=20%>DATE AND TIME</th>
+					<th width=60%>COMMENT</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -31,17 +31,4 @@ const display = function(comments) {
   return html;
 };
 
-const generateCommentTable = function(jsonComments) {
-  return JSON.parse(jsonComments)
-    .map(
-      ({ name, date, comment }) =>
-        `<tr>
-		<td>${name}</td>
-		<td>${date}</td>
-		<td>${comment}</td>
-		</tr>`
-    )
-    .join("");
-};
-
-module.exports = { display, generateCommentTable };
+module.exports = { display };

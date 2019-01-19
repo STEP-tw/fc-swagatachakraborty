@@ -18,9 +18,5 @@ main {
 }
 
 .center {
-  margin: auto;
-}
-
-.center div {
   margin-top: 200px;
 }
