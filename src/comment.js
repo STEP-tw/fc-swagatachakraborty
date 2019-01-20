@@ -16,9 +16,9 @@ class Comments {
       .map(
         x =>
           "<tr> <td>" +
-          x.name +
-          "</td><td>" +
           x.date +
+          "</td><td>" +
+          x.name +
           "</td><td>" +
           x.comment +
           "</td> </tr>"

@@ -1,4 +1,4 @@
-const display = function(comments) {
+const getGuestBookPage = function(comments) {
   let html = `
 	<html>
   <head>
@@ -14,10 +14,10 @@ const display = function(comments) {
       <input type="submit" />
     </form>
 		<hr />
-		<table border=1px solid black width=100%>
+		<table style="text-align: left;" width=100%>
 			<thead>
 				<tr>
-					<th width=20%>NAME</th>
+					<th width=20% >NAME</th>
 					<th width=20%>DATE AND TIME</th>
 					<th width=60%>COMMENT</th>
 				</tr>
@@ -31,4 +31,4 @@ const display = function(comments) {
   return html;
 };
 
-module.exports = { display };
+module.exports = { getGuestBookPage };

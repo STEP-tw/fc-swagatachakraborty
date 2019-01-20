@@ -1,5 +1,5 @@
 const fs = require("fs");
-const { display } = require("../public/guest_book");
+const { getGuestBookPage } = require("../public/jsFiles/guest_book");
 const { getFilePath, reader, parse, send } = require("./util");
 
 const readBody = function(req, res, next) {
@@ -19,27 +19,30 @@ const logger = function(req, res, next) {
   next();
 };
 
-const serveFile = function(req, res, next) {
+const serveFile = function(req, res) {
   let url = getFilePath(req.url);
   fs.readFile(url, reader.bind(null, res));
-  next();
 };
 
-const renderGuestBook = function(comment, req, res, next) {
+const renderGuestBook = function(comment, req, res) {
   let tableFormatComment = comment.formatComments();
-  let htmlComtent = display(tableFormatComment);
+  let htmlComtent = getGuestBookPage(tableFormatComment);
   send(res, 200, htmlComtent);
 };
 
-const storeComment = function(comment, fs, req, res, next) {
+const storeComments = function(comment, fs, req, res) {
   const newComment = parse(req.body);
+  if (!newComment.name || !newComment.comment) {
+    renderGuestBook(comment, req, res);
+    return;
+  }
   comment.addComment(newComment);
-  fs.writeFile("./public/comments.json", comment.getComments(), err => {
+  fs.writeFile("./hidden/comments.json", comment.getComments(), err => {
     if (err) {
       sendNotFoud();
       return;
     }
-    renderGuestBook(comment, req, res, next);
+    renderGuestBook(comment, req, res);
   });
 };
 
@@ -48,5 +51,5 @@ module.exports = {
   logger,
   serveFile,
   renderGuestBook,
-  storeComment
+  storeComments
 };
