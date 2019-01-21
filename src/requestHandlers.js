@@ -32,12 +32,8 @@ const renderGuestBook = function(comment, req, res) {
 
 const storeComments = function(comment, fs, req, res) {
   const newComment = parse(req.body);
-  if (!newComment.name || !newComment.comment) {
-    renderGuestBook(comment, req, res);
-    return;
-  }
   comment.addComment(newComment);
-  fs.writeFile("./hidden/comments.json", comment.getComments(), err => {
+  fs.writeFile("./private/comments.json", comment.getComments(), err => {
     if (err) {
       sendNotFoud();
       return;
@@ -46,10 +42,15 @@ const storeComments = function(comment, fs, req, res) {
   });
 };
 
+const updateComments = function(comment, req, res, next) {
+  send(res, 200, comment.formatComments());
+};
+
 module.exports = {
   readBody,
   logger,
   serveFile,
   renderGuestBook,
-  storeComments
+  storeComments,
+  updateComments
 };

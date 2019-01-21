@@ -23,12 +23,12 @@ const sendNotFound = function(res) {
 };
 
 const parse = function(data) {
-  let nameAndComment = data.split("&").map(x => x.replace(/\+/g, / /));
+  let nameAndComment = data.split("&").map(x => x.replace(/\+/g, " "));
   let [name, comment] = nameAndComment.map(x => x.split("=")[1]);
   return {
     name,
     comment,
-    date: new Date().toLocaleString()
+    date: new Date()
   };
 };
 

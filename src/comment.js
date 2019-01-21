@@ -16,7 +16,7 @@ class Comments {
       .map(
         x =>
           "<tr> <td>" +
-          x.date +
+          x.date.toLocaleString() +
           "</td><td>" +
           x.name +
           "</td><td>" +

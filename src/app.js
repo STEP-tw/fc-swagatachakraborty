@@ -6,11 +6,12 @@ const {
   logger,
   serveFile,
   storeComments,
-  renderGuestBook
+  renderGuestBook,
+  updateComments
 } = require("./requestHandlers");
 
 const loadComments = fs => {
-  const path = "./hidden/comments.json";
+  const path = "./private/comments.json";
   if (!fs.existsSync(path)) return;
   const comment = fs.readFileSync(path, "utf8");
   return JSON.parse(comment);
@@ -23,6 +24,7 @@ app.use(readBody);
 app.use(logger);
 app.get("/guest_book.html", renderGuestBook.bind(null, comment));
 app.post("/guest_book.html", storeComments.bind(null, comment, fs));
+app.get("/updateComment", updateComments.bind(null, comment));
 app.use(serveFile);
 
 module.exports = app.handleRequests.bind(app);
