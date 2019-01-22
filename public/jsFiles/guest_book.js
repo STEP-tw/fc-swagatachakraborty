@@ -1,18 +1,10 @@
 const getGuestBookPage = function(comments) {
-  let html = `
+  return `
 	<html>
   <head>
     <title>Guest Book</title>
 		<link rel="stylesheet" href="/style.css" />
-		<script>
-		const reloadCmments = function() {
-			fetch("/updateComment").then(function(response) {
-				return response.text();
-			}).then(function(res) {
-				document.getElementById('comments').innerHTML = res;
-			});
-		};
-		</script>
+		<script src="/jsFiles/commentRefresher.js"> </script>
   </head>
   <body>
     <h1 class="heading"><a href="/"> << </a>Guest Book</h1>
@@ -42,7 +34,6 @@ const getGuestBookPage = function(comments) {
 		</div>
 	</body>
 	</html> `;
-  return html;
 };
 
 module.exports = { getGuestBookPage };

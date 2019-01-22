@@ -35,14 +35,14 @@ const storeComments = function(comment, fs, req, res) {
   comment.addComment(newComment);
   fs.writeFile("./private/comments.json", comment.getComments(), err => {
     if (err) {
-      sendNotFoud();
+      sendNotFound();
       return;
     }
     renderGuestBook(comment, req, res);
   });
 };
 
-const updateComments = function(comment, req, res, next) {
+const updateComments = function(comment, req, res) {
   send(res, 200, comment.formatComments());
 };
 
