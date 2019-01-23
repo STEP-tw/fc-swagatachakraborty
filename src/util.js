@@ -23,13 +23,32 @@ const sendNotFound = function(res) {
 };
 
 const parse = function(data) {
-  let nameAndComment = data.split("&").map(x => x.replace(/\+/g, " "));
-  let [name, comment] = nameAndComment.map(x => x.split("=")[1]);
+  let comment = data
+    .split("=")
+    .pop()
+    .replace(/\+/g, " ");
+  console.log(data, "in parse");
   return {
-    name,
     comment,
     date: new Date()
   };
 };
 
-module.exports = { getFilePath, reader, parse, send };
+const getFormElements = function(hasLogedIn, user) {
+  if (hasLogedIn) {
+    return `<form method="POST" action="/logout">
+		Name ${user} <button>Logout</button><br><br>
+		</form>
+		<form method='POST'>
+		Comment: <textarea id='a' name="comment" rows="3" required></textarea> <br><br>
+		<input type="submit">
+		</form>`;
+  }
+  return `<form method="POST" action="/login">
+	<h1>Login to comment</h1>
+	Name:<input name="name" required/> 
+	<button> Login </button>
+	</form>`;
+};
+
+module.exports = { getFilePath, reader, parse, send, getFormElements };

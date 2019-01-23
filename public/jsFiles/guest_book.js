@@ -1,4 +1,4 @@
-const getGuestBookPage = function(comments) {
+const getGuestBookPage = function(comments, formFields) {
   return `
 	<html>
   <head>
@@ -8,25 +8,22 @@ const getGuestBookPage = function(comments) {
   </head>
   <body>
     <h1 class="heading"><a href="/"> << </a>Guest Book</h1>
-    <form method="POST" action="/guest_book.html">
-      <h1>Leave a comment</h1>
-      Name:<input name="name" required/> <br />
-      Comment: <textarea name="comment" rows="3" required></textarea> <br />
-      <input type="submit" />
-    </form>
+    <div id='form'>
+      ${formFields}
+    </div>
 		<hr />
 		<h3> Comments
-			<button onclick="reloadCmments()"> &#x21bb; </button>
+			<button onclick="reloadComments()"> &#x21bb; </button>
 		</h3>
 		<div >
 			<table style="text-align: left;" width=100%>
 				<thead>
 					<tr>
-						<th width=20% >NAME</th>
-						<th width=20%>DATE AND TIME</th>
-						<th width=60%>COMMENT</th>
+					<th width=20%>DATE</th>
+					<th width=20% >NAME</th>
+					<th width=60%>COMMENT</th>
 					</tr>
-				</thead>
+					</thead>
 				<tbody id="comments">
 					${comments}
 				</tbody>
