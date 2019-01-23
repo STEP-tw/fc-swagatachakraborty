@@ -32,17 +32,18 @@ const serveFile = function(req, res) {
 };
 
 const storeComments = function(comment, user, fs, req, res) {
-	console.log(req.body);
-	const newComment = parse(req.body);
-	// console.log(newComment, 'in storeComments'); 
-	newComment.name = user.getId();
-	comment.addComment(newComment);
+  console.log(req.body);
+  const newComment = parse(req.body);
+  // console.log(newComment, 'in storeComments');
+  newComment.name = user.getId();
+  comment.addComment(newComment);
   fs.writeFile("./private/comments.json", comment.getComments(), err => {
     if (err) {
       sendNotFound();
       return;
     }
-	});
+  });
+  renderGuestBook(comment, user, req, res);
 };
 
 const renderGuestBook = function(comment, user, req, res) {
@@ -60,15 +61,15 @@ const login = function(comment, user, req, res) {
   const cookie = req.body.split("=")[1];
   res.setHeader("Set-Cookie", `username=${cookie}`);
   user.setUser(cookie);
-  user.changeLoginStatus();
+  user.logIn();
   renderGuestBook(comment, user, req, res);
 };
 
-const logout = function (comment, user, req, res) {
-	const expireTime = new Date(Date.now() - 1).toGMTString();
-	res.setHeader("Set-Cookie", `username=delete; expires=${expireTime}`);
-	user.removeUser();
-	user.changeLoginStatus();
+const logout = function(comment, user, req, res) {
+  const expireTime = new Date(Date.now() - 1).toGMTString();
+  res.setHeader("Set-Cookie", `username=delete; expires=${expireTime}`);
+  user.removeUser();
+  user.logOff();
   renderGuestBook(comment, user, req, res);
 };
 
@@ -80,6 +81,6 @@ module.exports = {
   storeComments,
   updateComments,
   readCookie,
-	login,
-	logout
+  login,
+  logout
 };

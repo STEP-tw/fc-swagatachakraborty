@@ -10,12 +10,6 @@ const reloadComments = function() {
     });
 };
 
-const addComments = function() {
-  console.log("in add comment");
-  fetch("/addComment");
-  reloadComments();
-};
-
 const formatToTable = function(row) {
   return (
     "<tr> <td>" +

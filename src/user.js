@@ -20,8 +20,12 @@ class User {
     return this.id;
   }
 
-  changeLoginStatus() {
-    this.hasLogedIn = !this.hasLogedIn;
+  logIn() {
+    this.hasLogedIn = true;
+  }
+
+  logOff() {
+    this.hasLogedIn = false;
   }
 
   changeId(newId) {

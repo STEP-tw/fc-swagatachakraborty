@@ -39,7 +39,7 @@ const getFormElements = function(hasLogedIn, user) {
     return `<form method="POST" action="/logout">
 		Name ${user} <button>Logout</button><br><br>
 		</form>
-		<form method='POST'>
+		<form method='POST' action='/addComment'>
 		Comment: <textarea id='a' name="comment" rows="3" required></textarea> <br><br>
 		<input type="submit">
 		</form>`;
