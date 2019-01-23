@@ -1,5 +1,4 @@
 const reloadComments = function() {
-  console.log("in reload comment");
   fetch("/updateComment")
     .then(function(response) {
       return response.json();

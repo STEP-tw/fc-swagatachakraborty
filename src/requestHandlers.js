@@ -1,6 +1,6 @@
 const fs = require("fs");
 const { getGuestBookPage } = require("../public/jsFiles/guest_book");
-const { getFilePath, reader, parse, send, getFormElements } = require("./util");
+const { getFilePath, reader, parse, send, getFormElements, decode } = require("./util");
 
 const readBody = function(req, res, next) {
   let content = "";
@@ -20,7 +20,6 @@ const readCookie = function(req, res, next) {
 const logger = function(req, res, next) {
   console.log("URL:", req.url);
   console.log("Method:", req.method);
-  // console.log("Headers:", req.headers);
   console.log("Body:", req.body);
   console.log("-------------------------------------------------------------");
   next();
@@ -32,9 +31,7 @@ const serveFile = function(req, res) {
 };
 
 const storeComments = function(comment, user, fs, req, res) {
-  console.log(req.body);
   const newComment = parse(req.body);
-  // console.log(newComment, 'in storeComments');
   newComment.name = user.getId();
   comment.addComment(newComment);
   fs.writeFile("./private/comments.json", comment.getComments(), err => {
@@ -43,7 +40,7 @@ const storeComments = function(comment, user, fs, req, res) {
       return;
     }
   });
-  renderGuestBook(comment, user, req, res);
+  redirectToGuestBook(res);
 };
 
 const renderGuestBook = function(comment, user, req, res) {
@@ -57,20 +54,27 @@ const updateComments = function(comment, req, res) {
   send(res, 200, comment.getComments());
 };
 
-const login = function(comment, user, req, res) {
-  const cookie = req.body.split("=")[1];
+const redirectToGuestBook = function(res) {
+  res.writeHead(302, {
+    Location: "/guest_book.html"
+  });
+  res.end();
+};
+
+const login = function(user, req, res) {
+  const cookie = decode(req.body);
   res.setHeader("Set-Cookie", `username=${cookie}`);
   user.setUser(cookie);
   user.logIn();
-  renderGuestBook(comment, user, req, res);
+  redirectToGuestBook(res);
 };
 
-const logout = function(comment, user, req, res) {
+const logout = function(user, req, res) {
   const expireTime = new Date(Date.now() - 1).toGMTString();
   res.setHeader("Set-Cookie", `username=delete; expires=${expireTime}`);
   user.removeUser();
   user.logOff();
-  renderGuestBook(comment, user, req, res);
+  redirectToGuestBook(res);
 };
 
 module.exports = {

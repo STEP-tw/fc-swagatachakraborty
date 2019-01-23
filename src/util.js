@@ -22,12 +22,13 @@ const sendNotFound = function(res) {
   send(res, 404, "404: Not Found");
 };
 
+const decode = data => {
+  const indexOfValue = data.indexOf("=") + 1;
+  return data.slice(indexOfValue).replace(/\+/g, " ");
+};
+
 const parse = function(data) {
-  let comment = data
-    .split("=")
-    .pop()
-    .replace(/\+/g, " ");
-  console.log(data, "in parse");
+  let comment = decode(data);
   return {
     comment,
     date: new Date()
@@ -37,7 +38,7 @@ const parse = function(data) {
 const getFormElements = function(hasLogedIn, user) {
   if (hasLogedIn) {
     return `<form method="POST" action="/logout">
-		Name ${user} <button>Logout</button><br><br>
+		Name: ${user} <button>Logout</button><br><br>
 		</form>
 		<form method='POST' action='/addComment'>
 		Comment: <textarea id='a' name="comment" rows="3" required></textarea> <br><br>
@@ -46,9 +47,9 @@ const getFormElements = function(hasLogedIn, user) {
   }
   return `<form method="POST" action="/login">
 	<h1>Login to comment</h1>
-	Name:<input name="name" required/> 
+	Name: <input name="name" required/> 
 	<button> Login </button>
 	</form>`;
 };
 
-module.exports = { getFilePath, reader, parse, send, getFormElements };
+module.exports = { getFilePath, reader, parse, send, getFormElements, decode };

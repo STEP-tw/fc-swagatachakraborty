@@ -30,8 +30,8 @@ app.use(readCookie);
 app.use(logger);
 
 app.get("/guest_book.html", renderGuestBook.bind(null, comment, user));
-app.post("/login", login.bind(null, comment, user));
-app.post("/logout", logout.bind(null, comment, user));
+app.post("/login", login.bind(null, user));
+app.post("/logout", logout.bind(null, user));
 app.post("/addComment", storeComments.bind(null, comment, user, fs));
 app.get("/updateComment", updateComments.bind(null, comment));
 
