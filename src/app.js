@@ -16,7 +16,10 @@ const {
 
 const loadComments = fs => {
   const path = "./private/comments.json";
-  if (!fs.existsSync(path)) return;
+  if (!fs.existsSync(path)) {
+    fs.mkdirSync("./private");
+    fs.writeFileSync(path, "[]", err => {});
+  }
   const comment = fs.readFileSync(path, "utf8");
   return JSON.parse(comment);
 };
